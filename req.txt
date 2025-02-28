@@ -29,3 +29,4 @@ wcwidth==0.2.13
 django_celery_results
 pillow
 python-dotenv==1.0.0
+django-cors-headers
