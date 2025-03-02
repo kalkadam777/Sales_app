@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{% block title %}Sales & Trading App{% endblock %}</title>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        />
+        <style>
+            body {
+                background-color: #f8f9fa;
+                font-family: "Arial", sans-serif;
+            }
+
+            .navbar {
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .navbar-brand {
+                font-size: 1.5rem;
+                font-weight: bold;
+                color: #ffffff;
+            }
+
+            .nav-link {
+                color: #ffffff !important;
+                font-size: 1.1rem;
+                transition: color 0.3s ease-in-out;
+            }
+
+            .nav-link:hover {
+                color: #ffc107 !important;
+            }
+
+            .nav-item {
+                margin-right: 15px;
+            }
+
+            .container {
+                margin-top: 40px;
+            }
+
+            .btn-logout {
+                background: none;
+                border: none;
+                color: #ffffff;
+                font-size: 1rem;
+                text-decoration: none;
+                cursor: pointer;
+                transition: color 0.3s ease-in-out;
+            }
+
+            .btn-logout:hover {
+                color: #ffc107;
+            }
+
+            .profile-icon {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                margin-right: 8px;
+            }
+
+            .card {
+                border-radius: 10px;
+                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+                background: white;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Навигационная панель -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="/">Sales & Trading</a>
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/trading">Trading</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/sales">Sales</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/analytics">Analytics</a>
+                        </li>
+
+                        {% if user.is_authenticated %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                                    <!-- <img src="https://via.placeholder.com/30" alt="User" class="profile-icon"> -->
+                                    {{ user.username }}
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="{% url 'profile' %}">Профиль</a></li>
+                                    <li>
+                                        <form action="{% url 'logout' %}" method="post">
+                                            {% csrf_token %}
+                                            <button type="submit" class="dropdown-item">Выйти</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'login' %}">Войти</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'register' %}">Регистрация</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Основной контент -->
+        <div class="container">
+            <div class="card">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
