@@ -7,7 +7,10 @@
 ## Демо
 
 -   Ссылка на Deploy: [Sales_app](https://sales-app-qwi6.onrender.com)
--   Ссылка на видео: [Youtube]
+-   Demo видео:
+---
+ https://github.com/user-attachments/assets/732ff863-98cc-4b9a-aa8a-855dd89bb51a
+
 
 ---
 
