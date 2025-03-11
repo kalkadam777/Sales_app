@@ -6,6 +6,7 @@ from .swagger_urls import urlpatterns as swagger_urls
 from django.views.generic import TemplateView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 from users import views
+from payments.views import CreateCheckoutSessionView, payment_success, payment_cancel, stripe_webhook
 from django.contrib.auth.views import LogoutView, PasswordChangeView,PasswordChangeDoneView, PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 
 urlpatterns = [
@@ -14,6 +15,16 @@ urlpatterns = [
     
     # DRF
     path('api/drf-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    
+    path('sales/', include('sales.urls')),
+    path('trading/', include('trading.urls')),
+    path('analytics/', include('analytics.urls')),
+    
+    path("webhook/stripe/", stripe_webhook, name="stripe_webhook"),
+    path("payment/success/", payment_success, name="payment_success"),
+    path("payment/cancel/", payment_cancel, name="payment_cancel"),
+    path('create-checkout-session/<int:order_id>/<int:amount>/', CreateCheckoutSessionView.as_view(), name="create-checkout-session"),
+
     
     path('', TemplateView.as_view(template_name="home.html"), name="home"),
     # path("users/", include("users.urls")),
@@ -45,6 +56,7 @@ urlpatterns = [
     path("api/analytics/", include("analytics.urls")),
     path('api/products/', include('products.urls')),
     path('api/trading/', include('trading.urls')),
+    
     
     # JWT-токены
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),

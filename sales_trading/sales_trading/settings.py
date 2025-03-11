@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from datetime import timedelta
 import os
+import stripe
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -50,9 +51,11 @@ INSTALLED_APPS = [
     'trading',
     'sales',
     'analytics',
+    'payments',
     'notifications',
     'django_celery_results',
-    'corsheaders'
+    'corsheaders',
+    'stripe',
 ]
 
 MIDDLEWARE = [
@@ -243,4 +246,11 @@ AUTHENTICATION_BACKENDS = {
     'django.contrib.auth.backends.ModelBackend',
     'users.authentication.EmailBackend'
 }
+
+
+# Ключи Stripe
+STRIPE_PUBLIC_KEY = "pk_test_51Qypu8FhBDANYFfyUBeVUXvoIpSyM4DMM2bZwsDelC9T5VEL2a1BfBFVIW9yhnd80o1zwoQgbyXBkBL1DfTLKoQy001SUt9onV"
+STRIPE_SECRET_KEY = "sk_test_51Qypu8FhBDANYFfyqN7CpwUvI2xiyZjWE6Hdq5uOLBw3tSuMT4NeGkL4Yh5n4fvDuQeZyiXnLkj6CZMOLcOp7rgZ00DngiADBX"
+
+stripe.api_key = STRIPE_SECRET_KEY
 

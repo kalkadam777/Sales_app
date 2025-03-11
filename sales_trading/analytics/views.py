@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.db.models import Sum, Count, Avg
 from trading.models import Order
+from django.shortcuts import render
 
 class SalesReportView(APIView):
     def get(self, request):
@@ -15,3 +16,8 @@ class SalesReportView(APIView):
             "avg_order_value": avg_order_value,
         }
         return Response(data)
+    
+
+def analytics_dashboard(request):
+    return render(request, 'analytics/index.html')
+

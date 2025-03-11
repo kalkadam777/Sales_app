@@ -4,6 +4,7 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.db import transaction
+from django.shortcuts import render
 
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
@@ -52,3 +53,9 @@ class TransactionViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         """Выдаем только транзакции пользователя"""
         return Transaction.objects.filter(order__user=self.request.user)
+
+
+
+
+def trading_dashboard(request):
+    return render(request, 'trading/index.html')
